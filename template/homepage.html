@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freshwater Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #87CEEB; /* Light blue */
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      color: #00688B; /* Dark blue */
+    }
+
+    p {
+      color: #00688B; /* Dark blue */
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #00688B; /* Dark blue */
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #004e6d; /* Darker blue */
+    }
+
+    input[type="text"], input[type="password"] {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Welcome to Freshwater Hub</h1>
+    <p>Explore the wonders of freshwater ecosystems!</p>
+    <form action="login_process.php" method="post" id="loginForm">
+      <label for="role">Log In As A Role:</label>
+      <select id="role" name="role" onchange="toggleRegisterButton()">
+        <option value="River User">River User</option>
+        <option value="Staff">Staff</option>
+        <option value="Admin">Admin</option>
+      </select><br><br>
+      <input type="text" id="username" name="username" placeholder="Username"><br>
+      <input type="password" id="password" name="password" placeholder="Password"><br>
+      <input type="submit" value="Login" class="btn">
+    </form>
+    <a href="registration.html" class="btn" id="registerBtn" style="display:none;">Register</a>
+  </div>
+
+  <!-- Footer section -->
+  <footer>
+    <p>&copy; FRESHWATER PEST AND DISEASE BIOSECURITY</p>
+  </footer>
+
+  <script>
+    function toggleRegisterButton() {
+      var role = document.getElementById("role").value;
+      var registerBtn = document.getElementById("registerBtn");
+
+      if (role === "River User") {
+        registerBtn.style.display = "inline-block";
+      } else {
+        registerBtn.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
