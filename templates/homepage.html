@@ -56,10 +56,13 @@
 <body>
 
   <div class="container">
-    <h1>Welcome to Freshwater Hub</h1>
-    <p>Explore the wonders of freshwater ecosystems!</p>
+    
+    <a href="{{ url_for('FreshwaterGuide') }}"><h1>Welcome to Freshwater Pest And Disease Biosecurity Guide </h1>
+    </a>
+</body>
+   
     <form action="login_process.php" method="post" id="loginForm">
-      <label for="role">Log In As A Role:</label>
+      <label for="role">Please Select Your Role:</label>
       <select id="role" name="role" onchange="toggleRegisterButton()">
         <option value="River User">River User</option>
         <option value="Staff">Staff</option>
@@ -71,6 +74,9 @@
     </form>
     <a href="registration.html" class="btn" id="registerBtn" style="display:none;">Register</a>
   </div>
+
+ 
+  
 
   <!-- Footer section -->
   <footer>
