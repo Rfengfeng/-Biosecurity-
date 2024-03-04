@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>River User Panel</title>
+    <style>
+        /* 样式内容根据实际需求进行修改 */
+        .guide-container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        .pest-card {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .pest-image {
+            max-width: 200px;
+            height: auto;
+        }
+        .pest-details {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-container">
+        <h1>Freshwater Pest and Disease Guide</h1>
+        {% for pest in pests %}
+        <div class="pest-card">
+            <img class="pest-image" src="{{ pest.primary_image }}" alt="{{ pest.common_name }}">
+            <div class="pest-details">
+                <h2>{{ pest.common_name }}</h2>
+                <p><strong>Scientific Name:</strong> {{ pest.scientific_name }}</p>
+                <p><strong>Present in NZ:</strong> {% if pest.present_in_nz %}Yes{% else %}No{% endif %}</p>
+                <!-- 其他详细信息 -->
+                <p><strong>Description:</strong> {{ pest.description }}</p>
+                <p><strong>Key Characteristics:</strong> {{ pest.key_characteristics }}</p>
+                <p><strong>Biology:</strong> {{ pest.biology }}</p>
+                <p><strong>Impacts:</strong> {{ pest.impacts }}</p>
+                <!-- 其他相关信息 -->
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
