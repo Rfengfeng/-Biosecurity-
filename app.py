@@ -46,6 +46,7 @@ def index():
 def redirect_to_index():
     return redirect(url_for('index'))
 
+
 # http://localhost:5000/login/ - this will be the login page, we need to use both GET and POST requests
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -72,9 +73,9 @@ def login():
                 session['role'] = account[4]
                 # Redirect to home page
                 if session['role'] == 'admin':
-                    return redirect(url_for('admin'))
+                    return redirect(url_for('admin_panel'))
                 if session['role'] == 'staff':
-                    return redirect(url_for('staff'))
+                    return redirect(url_for('staff_panel'))
                 if session['role'] == 'RiverUser':
                     return redirect(url_for('RiverUser'))
                 return redirect(url_for('home'))
@@ -157,20 +158,74 @@ def logout():
    return redirect(url_for('login'))
 
 
-@app.route('/admin')
-def admin():
-    if session['role'] == 'admin':
-        return render_template('admin_panel.html')
-    
-@app.route('/staff')
-def staff():
-    if session['role'] == 'staff':
-        return render_template('staff_panel.html')
-    
 @app.route('/RiverUser')
 def RiverUser():
+    current_user={}
     if session['role'] == 'RiverUser':
-        return render_template('RiverUser_panel.html')
+        current_user['is_authenticated']=session['loggedin'] 
+        current_user['userid']=session['id'] 
+        current_user['username']=session['username'] 
+        current_user['role']=session['role']
+        return render_template('RiverUser_panel.html',current_user=current_user)
+    
+@app.route('/riveruserprofile')
+def riveruserprofile():
+    return render_template('riveruserprofile.html')
+
+@app.route('/redirect_to_riveruserprofile')
+def redirect_to_riveruserprofile():
+    return redirect(url_for('riveruserprofile'))
+
+@app.route('/Guide')
+def Guide():
+    return render_template('Guide.html')
+
+@app.route('/redirect_to_Guide')
+def redirect_to_Guide():
+    return redirect(url_for('Guide'))
+
+
+
+
+
+@app.route('/staff_panel')
+def staff_panel():
+    current_user={}
+    if session['role'] == 'staff':
+        current_user['is_authenticated']=session['loggedin'] 
+        current_user['userid']=session['id'] 
+        current_user['username']=session['username'] 
+        current_user['role']=session['role']
+        return render_template('staff_panel.html',current_user=current_user)
+    
+    
+
+@app.route('/admin_panel')
+def admin_panel():
+    current_user={}
+    if session['role'] == 'admin':
+        current_user['is_authenticated']=session['loggedin'] 
+        current_user['userid']=session['id'] 
+        current_user['username']=session['username'] 
+        current_user['role']=session['role']
+        return render_template('admin_panel.html',current_user=current_user)
+
+@app.route('/userprofile_staffadmin')
+def userprofile():
+    return render_template('userprofile_staffadmin.html')
+
+@app.route('/redirect_to_userprofile_staffadmin')
+def redirect_to_userprofile_staffadmin():
+    return redirect(url_for('userprofile_staffadmin'))
+
+    
+@app.route('/logout')
+def logout():
+    # 清除会话中的用户信息
+    session.pop('username', None)
+    # 重定向到登录页面（假设登录页面的路由为'/login'）
+    return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

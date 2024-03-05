@@ -1,21 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Staff Panel{% endblock %}
-
 {% block content %}
-<div class="profile-section">
-    <h1>Staff Profile</h1>
-    <!-- 员工个人资料编辑部分 -->
-    <!-- 其他内容 -->
-</div>
-<div class="profile-section">
-    <h1>River Users Profiles</h1>
-    <!-- River Users profiles 列表 -->
-    <!-- 其他内容 -->
-</div>
-<div class="profile-section guide-management">
-    <h1>Guide Management</h1>
-    <!-- 指南管理部分 -->
-    <!-- 其他内容 -->
-</div>
+<h2>Staff Panel</h2>
+
+<!-- Profile Section -->
+<section>
+    <h3>Manage Your Profile</h3>
+    <p>Update personal information and change password here.</p>
+    <form action="/update_profile" method="post">
+        <!-- 表单字段 -->
+    </form>
+</section>
+
+<!-- River Users Profiles Section -->
+<section>
+    <h3>River Users Profiles</h3>
+    <p>View and manage River Users profiles.</p>
+    <!-- River Users 列表 -->
+    <ul>
+        <li>River User 1</li>
+        <li>River User 2</li>
+        <!-- 其他 River Users -->
+    </ul>
+</section>
+
+<!-- Guide Management Section -->
+<section>
+    <h3>Guide Management</h3>
+    <p>View, add, update, and delete details and images in the guide.</p>
+    <!-- Guide 操作链接 -->
+    <ul>
+        <li><a href="/view_guide">View Guide</a></li>
+        <li><a href="/add_guide">Add to Guide</a></li>
+        <li><a href="/update_guide">Update Guide</a></li>
+        <li><a href="/delete_guide">Delete from Guide</a></li>
+    </ul>
+</section>
 {% endblock %}

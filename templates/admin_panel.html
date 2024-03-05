@@ -1,45 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <!-- 导入所需的 CSS 文件 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Admin Panel</h1>
-        <hr>
-        <div class="row">
-            <div class="col-md-6">
-                <!-- 管理员个人信息 -->
-                <h2>Administrator Profile</h2>
-                <!-- 在此添加管理员个人信息的展示和编辑表单 -->
-            </div>
-            <div class="col-md-6">
-                <!-- River Users Account managerment-->
-                <h2>River Users Account Management</h2>
-                <!-- 在此添加对 River Users 进行操作的表格或功能模块 -->
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-6">
-                <!-- 管理 Staff -->
-                <h2>Staff Users Account Management</h2>
-                <!-- 在此添加对 Staff 进行操作的表格或功能模块 -->
-            </div>
-            <div class="col-md-6">
-                <!-- 管理 Guide -->
-                <h2>Guide Conten Management</h2>
-                <!-- 在此添加对 Guide 进行操作的表格或功能模块 -->
-            </div>
-        </div>
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-panel">
+    <h2>Admin Panel</h2>
+    <div class="options">
+        <h3>Manage Profile</h3>
+        <p>Update personal information and change password.</p>
+        <button>Edit Profile</button>
+        <button>Change Password</button>
     </div>
-
-    <!-- 导入所需的 JavaScript 文件 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <div class="options">
+        <h3>Manage River Users</h3>
+        <p>View, add, update, and delete River Users.</p>
+        <button>View River Users</button>
+        <button>Add River User</button>
+        <button>Update River User</button>
+        <button>Delete River User</button>
+    </div>
+    <div class="options">
+        <h3>Manage Staff</h3>
+        <p>View, add, update, and delete Staff.</p>
+        <button>View Staff</button>
+        <button>Add Staff</button>
+        <button>Update Staff</button>
+        <button>Delete Staff</button>
+    </div>
+    <div class="options">
+        <h3>Manage Guide</h3>
+        <p>View, add, update, and delete details and images of the guide.</p>
+        <button>View Guide</button>
+        <button>Add Guide</button>
+        <button>Update Guide</button>
+        <button>Delete Guide</button>
+    </div>
+</div>
+{% endblock %}
