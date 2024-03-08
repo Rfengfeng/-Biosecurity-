@@ -1,38 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freshwater Pest and Disease Guide</title>
-</head>
-<body>
-    <h2>Freshwater Pests/Diseases Present in New Zealand</h2>
-    <ul>
-        <li>Koi Carp</li>
-        <li>Didymo (Rock Snot)</li>
-        <li>Brown Trout Disease</li>
-        <li>Lake Snow</li>
-        <li>Lagarosiphon</li>
-        <li>Egeria</li>
-        <li>Catfish</li>
-        <li>Gambusia</li>
-        <li>Hydrilla</li>
-        <li>Oxygen Weed</li>
-        <li>Freshwater Snails</li>
-        <li>Freshwater Shrimp</li>
-    </ul>
+{% extends "base.html" %}
 
-    <h2>Freshwater Pests/Diseases Not Present in New Zealand</h2>
-    <ul>
-        <li>Nile Perch</li>
-        <li>Water Hyacinth</li>
-        <li>Water Lettuce</li>
-        <li>Salvinia</li>
-        <li>African Clawed Frog</li>
-        <li>Red-eared Slider</li>
-        <li>American Bullfrog</li>
-        <li>Zebra Mussels</li>
-    </ul>
-</body>
-</html>
- 
+{% block content %}
+<section>
+    <h2>Freshwater Pest and Disease Guide</h2>
+
+    <!-- Present in NZ -->
+    <h3>Present in New Zealand</h3>
+    <div class="row">
+        {% for pest in present_in_nz %}
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ pest.common_name }}</h4>
+                    <p class="card-text">Scientific Name: {{ pest.scientific_name }}</p>
+                    <p class="card-text">Key Characteristics: {{ pest.key_characteristics }}</p>
+                    <p class="card-text">Biology/Description: {{ pest.biology_description }}</p>
+                    <p class="card-text">Impacts: {{ pest.impacts }}</p>
+                    <p class="card-text">Present in NZ: Yes</p>
+                    <!-- Include primary image here -->
+                    <img src="{{ pest.primary_image }}" alt="Primary Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Not Present in NZ -->
+    <h3>Not Present in New Zealand</h3>
+    <div class="row">
+        {% for pest in not_present_in_nz %}
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ pest.common_name }}</h4>
+                    <p class="card-text">Scientific Name: {{ pest.scientific_name }}</p>
+                    <p class="card-text">Key Characteristics: {{ pest.key_characteristics }}</p>
+                    <p class="card-text">Biology/Description: {{ pest.biology_description }}</p>
+                    <p class="card-text">Impacts: {{ pest.impacts }}</p>
+                    <p class="card-text">Present in NZ: No</p>
+                    <!-- Include primary image here -->
+                    <img src="{{ pest.primary_image }}" alt="Primary Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

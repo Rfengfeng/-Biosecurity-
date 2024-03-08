@@ -13,6 +13,7 @@ from mysql.connector import FieldType
 import connect
 from flask_hashing import Hashing
 
+
 app = Flask(__name__)
 hashing = Hashing(app)  #create an instance of hashing
 
@@ -158,6 +159,51 @@ def logout():
    return redirect(url_for('login'))
 
 
+
+def getCursor():
+    global dbconn
+    global connection
+    connection = mysql.connector.connect(user=connect.dbuser, \
+    password=connect.dbpass, host=connect.dbhost, auth_plugin='mysql_native_password',\
+    database=connect.dbname, autocommit=True)
+    dbconn = connection.cursor()
+    return dbconn
+
+@app.route('/uploadpanel')
+def uploadpanel():
+    print("index")
+    return render_template('upload.html')
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    print("here")
+    if request.method == 'POST':
+        file = request.files['image']
+        print("here")
+        if file:
+            # Read image data
+            image_data = file.read()
+
+            # Store image data as blob in MySQL
+            cursor = getCursor()
+            cursor.execute('INSERT INTO images (image_data) VALUES (%s)', (image_data,))
+            connection.commit()
+            print("success")
+            return 'File uploaded successfully'
+    return 'No file uploaded'
+
+@app.route('/display')
+def display_image():
+    # Fetch blob data from MySQL
+    cursor = getCursor()
+    cursor.execute('SELECT image_data FROM images ORDER BY id DESC LIMIT 1')
+    result = cursor.fetchone()
+
+    # Convert binary blob data to base64 encoding
+    image_data_base64 = base64.b64encode(result[0]).decode('utf-8')
+
+    # Pass base64 encoded image data to template
+    return render_template('display.html', image_data=image_data_base64)
 @app.route('/RiverUser')
 def RiverUser():
     current_user={}
@@ -178,14 +224,18 @@ def redirect_to_riveruserprofile():
 
 @app.route('/Guide')
 def Guide():
-    return render_template('Guide.html')
+    current_user={}
+    if session['role'] == 'RiverUser':
+        current_user['is_authenticated']=session['loggedin'] 
+        current_user['userid']=session['id'] 
+        current_user['username']=session['username'] 
+        current_user['role']=session['role']
+    return render_template('Guide.html',current_user=current_user)
+    
 
 @app.route('/redirect_to_Guide')
 def redirect_to_Guide():
     return redirect(url_for('Guide'))
-
-
-
 
 
 @app.route('/staff_panel')
@@ -197,7 +247,6 @@ def staff_panel():
         current_user['username']=session['username'] 
         current_user['role']=session['role']
         return render_template('staff_panel.html',current_user=current_user)
-    
     
 
 @app.route('/admin_panel')
