@@ -1,0 +1,68 @@
+<!-- add pest.html -->
+
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-row {
+      margin-bottom: 10px;
+    }
+    .form-label {
+      width: 150px;
+      display: inline-block;
+    }
+    .form-input {
+      width: 300px;
+    }
+    .form-textarea {
+      width: 300px;
+      height: 100px;
+    }
+  </style>
+
+  <h2>Pest/Disease Details</h2>
+
+  <form method="POST" action="/admin/add_pest_into_database" enctype="multipart/form-data">
+    <div class="form-row">
+      <div class="form-row">
+        <label class="form-label">Type:</label>
+        <select class="form-select" name="pest_type">
+            <option value="pest" selected >Pest</option>
+            <option value="disease" >Disease</option>
+        </select>
+    </div>
+      <div class="form-row">
+        <label class="form-label">In NZ:</label>
+        <select id="in_nz" name="in_nz">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Common Name:</label>
+        <input class="form-input" type="text" name="common_name">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Scientific Name:</label>
+        <input class="form-input" type="text" name="scientific_name">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Key Characteristics:</label>
+        <input class="form-input" type="text" name="key_characteristics">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Biology/Description:</label>
+        <textarea class="form-textarea" name="biology_description"></textarea>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Impacts:</label>
+        <textarea class="form-textarea" name="impacts"></textarea>
+      </div>
+      <label class="form-label">Image:</label>
+      <input type="file" name="pest_image">
+    </div>
+      <div class="form-row">
+        <input type="submit" value="Update" class="btn btn-primary">
+      </div>
+  </form>
+{% endblock %}

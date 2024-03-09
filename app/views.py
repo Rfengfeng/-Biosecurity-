@@ -1,4 +1,5 @@
 from flask import render_template, request, session, redirect, url_for
+from app.functions import image_type
 
 import re
 from datetime import datetime
@@ -37,7 +38,25 @@ def login_required(func):
 
 @app.route('/')
 def homepage():
-    return render_template('homepage.html')
+    # get a list of all guide using MySQL
+    cursor = getCursor()
+    cursor.execute("SELECT * FROM freshwater_guide")  
+    pests = cursor.fetchall()
+    cursor.close()
+    return render_template('homepage.html',allpests=pests)
+
+@app.route('/pests/<int:pest_id>/details')
+def view_pest(pest_id): 
+    # get a specific guide using MySQL
+    cursor = getCursor()
+    cursor.execute("SELECT * FROM freshwater_guide WHERE freshwater_id = %s", (pest_id,))
+    pest = cursor.fetchone()
+    # Convert binary blob data to base64 encoding
+    pest = list(pest)
+    if  pest[8]:
+        pest[8] = base64.b64encode(pest[8]).decode('utf-8')
+    cursor.close()
+    return render_template('view_pest.html', pest=pest)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

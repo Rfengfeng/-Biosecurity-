@@ -1,0 +1,72 @@
+<!-- pest_details.html -->
+
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .form-row {
+      margin-bottom: 10px;
+    }
+    .form-label {
+      width: 150px;
+      display: inline-block;
+    }
+    .form-input {
+      width: 300px;
+    }
+    .form-textarea {
+      width: 300px;
+      height: 100px;
+    }
+  </style>
+
+  <h2>Pest/Disease Details</h2>
+  <!-- {{pest}} -->
+  
+  <form method="POST" action="/admin/update_pest/{{ pest[0] }}" enctype="multipart/form-data">
+    <div class="form-row">
+      <div class="form-row">
+        <label class="form-label">ID:</label>
+        <input class="form-input" type="text" name="pest_id" value="{{ pest[0] }}" readonly>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Type:</label>
+        <select class="form-select" name="pest_type">
+            <option value="pest" {% if pest[1] == 'pest' %} selected {% endif %}>Pest</option>
+            <option value="disease" {% if pest[1] == 'disease' %} selected {% endif %}>Disease</option>
+        </select>
+    </div>
+      <div class="form-row">
+        <label class="form-label">In NZ:</label>
+        <input class="form-input" type="text" name="in_nz" value="{{ pest[2] }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Common Name:</label>
+        <input class="form-input" type="text" name="common_name" value="{{ pest[3] }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Scientific Name:</label>
+        <input class="form-input" type="text" name="scientific_name" value="{{ pest[4] }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Key Characteristics:</label>
+        <input class="form-input" type="text" name="key_characteristics" value="{{ pest[5] }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Biology/Description:</label>
+        <textarea class="form-textarea" name="biology_description">{{ pest[6] }}</textarea>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Impacts:</label>
+        <textarea class="form-textarea" name="impacts">{{ pest[7] }}</textarea>
+      </div>
+      <label class="form-label">Image:</label>
+      <img src="data:image/{{ mime_type }};base64,{{ pest[8] }}" alt="Uploaded Image">
+      <input type="file" name="pest_image">
+      <!-- <input class="form-input" type="text" name="image" value="{{ pest[8] }}"> -->
+    </div>
+      <div class="form-row">
+        <input type="submit" value="Update" class="btn btn-warning">
+      </div>
+  </form>
+{% endblock %}

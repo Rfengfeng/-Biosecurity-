@@ -3,50 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FRESHWATER PEST AND DISEASE BIOSECURITY</title>
     <!-- 添加样式 -->
-    
-		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+
     <style>
-         header {
-            background-color: #4682b4; /* 淡蓝色背景 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a6cceb; / /* 浅灰色背景 */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0963ad; /* 淡蓝色背景 */
             color: white;
-            padding: 10px;
             text-align: center;
         }
         footer {
-            background-color: #4682b4; /* 淡蓝色背景 */
+            background-color: #0963ad; /* 淡蓝色背景 */
             color: white;
             padding: 10px;
             text-align: center;
-            position: fixed;
             bottom: 0;
             width: 100%;
         }
         .container {
             width: 80%; /* 大屏幕宽度80% */
             margin: 0 auto; /* 居中 */
-            padding-top: 50px; /* 留出头部空间 */
+            padding-top: 5px; /* 留出头部空间 */
+            margin-bottom: 120px; /* 调整底部与内容之间的间距 */
         }
     </style>
 </head>
 <body>
     <header>
         <h1>FRESHWATER PEST AND DISEASE BIOSECURITY</h1>
-
-        <span>  <a href="{{ url_for('homepage') }}">HOME</a>   | 
-            <!-- 如果用户已登录，则显示用户名和注销链接 -->
-    {% if session.get('id') %}
-       Welcome, {{ session['username'] }} 
-
-       | <a href="{{ url_for('profile') }}">Profile</a>
-       | <a href="{{ url_for('logout') }}">Logout</a>
-
-    {% else %}
-    <a href="{{ url_for('login') }}">LOGIN/REGISTER  </a></span>
-
-    {% endif %}
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light" href="{{ url_for('homepage') }}">HOME</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <!-- 如果用户已登录，则显示用户名和注销链接 -->
+                    {% if session.get('id') %}                    
+                    <li class="nav-item">
+                        <span class="navbar-text">
+                            Welcome {{session.get('username')}}  
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light" href="{{ url_for('profile') }}">Profile</a>  
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light" href="{{ url_for('logout') }}">Logout</a>   
+                    </li>  
+                    {% else %}
+                    <li class="nav-item">
+                        <span class="navbar-text">
+                            <a class="btn btn-outline-light" href="{{ url_for('login') }}">LOGIN/REGISTER</a>
+                        </span>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
     </header>
     <div class="container">
         <!-- 主体内容 -->

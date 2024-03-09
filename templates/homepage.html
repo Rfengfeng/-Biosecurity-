@@ -1,18 +1,53 @@
 {% extends "base.html" %}
 {% block content %}
 
-  <div class="container">
-    
-    <h1>Welcome to FRESHWATER PEST AND DISEASE BIOSECURITY </h1> </a>
-  
-    <!-- 如果用户已登录，则显示用户名和注销链接 -->
-    {% if session.get('id') %}
-    <h2>Guaid list </h2>
+<div class="container">
+  <h1 class="display-4 text-center"></h1>
 
-    {% else %}
-    <p>You haven't login, please login or regitster first.</p>
-    <a href="{{ url_for('login') }}"><h2>LOGIN/REGISTER </h2> </a>
-
-    {% endif %}
+  {% if session.get('id') %}
+  <h2 class="text-center mt-5">List of Freshwater Pests and Diseases</h2>
+  {% if session.get('role') == 'admin' %}
+  <div class="text-center">
+    <a href="{{ url_for('add_pest') }}" class="btn btn-success">Add a new record</a>
   </div>
+  {% endif %}
+
+  {% for pest in allpests %}
+  {{ pest[9]}}
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-8">
+        <div class="card-body">
+          ID: {{ pest[0] }} 
+          <strong>  Type:</strong> {{ pest[1] }} 
+          <strong>  In NZ:</strong> {{ pest[2] }} 
+          <p class="card-text"><strong>Common Name:</strong> {{ pest[3] }}</p>
+          <p class="card-text"><strong>Scientific Name:</strong> {{ pest[4] }}</p>
+          <p class="card-text"><strong>Key Characteristics:</strong> {{ pest[5] }}</p>
+          <p class="card-text"><strong>Biology/Description:</strong> {{ pest[6] }}</p>
+          <p class="card-text"><strong>Impacts:</strong> {{ pest[7] }}</p>
+        </div>
+        {% if session.get('role') == 'admin' %}
+        <div class="text-center">
+          <a href="{{ url_for('view_pest', pest_id=pest[0]) }}" class="btn btn-primary">View details</a>
+          <a href="{{ url_for('edit_pest', pest_id=pest[0]) }}" class="btn btn-warning">Edit</a>
+          <a href="{{ url_for('delete_pest', pest_id=pest[0]) }}" class="btn btn-danger">Delete</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+
+  {% endfor %}
+
+  {% else %}
+  <p class="text-center">You haven't logged in, please login or register first.</p>
+  <div class="text-center">
+    <a href="{{ url_for('login') }}" class="btn btn-primary">LOGIN/REGISTER</a>
+  </div>
+  {% endif %}
+</div>
+
   {% endblock %}

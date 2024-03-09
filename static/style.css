@@ -117,7 +117,7 @@ body.loggedin {
     background-color: #f3f4f7;
 }
 .content {
-    width: 1000px;
+    width: 80%;
     margin: 0 auto;
 }
 .content h2 {

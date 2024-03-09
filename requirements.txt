@@ -1,1 +1,2 @@
 Flask-Hashing
+Pillow=10.2.0

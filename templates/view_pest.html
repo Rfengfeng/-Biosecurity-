@@ -1,0 +1,58 @@
+<!-- pest_details.html -->
+
+{% extends "base.html" %}
+{% block content %}
+
+
+  <h2>Pest/Disease Details</h2>
+  <!-- {{pest}} -->
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-row">
+            <label class="form-label">ID:</label>
+            <p>{{ pest[0] }}</p>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Type:</label>
+            <p>{{ pest[1] }}</p>
+          </div>
+          <div class="form-row">
+            <label class="form-label">In NZ:</label>
+            <p>{{ pest[2] }}</p>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Common Name:</label>
+            <p>{{ pest[3] }}</p>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Scientific Name:</label>
+            <p>{{ pest[4] }}</p>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Key Characteristics:</label>
+            <p>{{ pest[5] }}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-row">
+            <label class="form-label">Biology/Description:</label>
+            <p>{{ pest[6] }}</p>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Impacts:</label>
+            <p>{{ pest[7] }}</p>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Image:</label>
+            <img src="data:image/{{ mime_type }};base64,{{ pest[8] }}" alt="Uploaded Image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+{% endblock %}
