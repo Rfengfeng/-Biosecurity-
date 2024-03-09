@@ -1,90 +1,19 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h2>River User Panel</h2>
-
-<!-- Profile Section -->
-<section>
-    <h3>Manage Your Profile</h3>
-    <p>Update your photo</p>
-    <div class="container">
-        <h2>River User Profile</h2>
-        <form action="/submit_river_user_profile" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="first_name">First Name:</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" required>
-            </div>
-
-            <div class="form-group">
-                <label for="last_name">Last Name:</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" required>
-            </div>
-
-            <div class="form-group">
-                <label for="user_id">River User ID:</label>
-                <input type="text" class="form-control" id="user_id" name="user_id" required>
-            </div>
-
-            <div class="form-group">
-                <label for="address">Address:</label>
-                <input type="text" class="form-control" id="address" name="address">
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="phone_number">Phone Number:</label>
-                <input type="tel" class="form-control" id="phone_number" name="phone_number">
-            </div>
-
-            <div class="form-group">
-                <label for="date_joined">Date Joined:</label>
-                <input type="date" class="form-control" id="date_joined" name="date_joined" required>
-            </div>
-
-            <div class="form-group">
-                <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status">
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="password">New Password:</label>
-                <input type="password" class="form-control" id="password" name="password" minlength="6" required>
-            </div>
-
-            <div class="form-group">
-                <label for="confirm_password">Confirm New Password:</label>
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password" minlength="6" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Save Profile</button>
-        </form>
+<div class="admin-panel">
+    <h2>User Panel</h2>
+    <div class="options">
+        <h3>Manage Profile</h3>
+       
+        <a class="btn" href="{{ url_for('profile' , user_id=session['id']) }}">Edit Profile</a>  
+        <a class="btn" href="{{ url_for('change_psw' , user_id=session['id']) }}">Change Password</a>
     </div>
-</section>
+    <div class="options">
+        <h3>Pest and Desease Guide</h3>
+       
+        <a class="btn" href="{{ url_for('homepage')}}">View Guide</a>
+       
 
-
-
-<!-- Guide Section -->
-<section>
- <a href="{{ url_for('Guide') }}"><h3>Freshwater Pests and Diseases Guide </h3> </a>
-    
-</section>
-
-<script>
-// JavaScript 函数显示详细信息
-function showDetails(pestId) {
-    var details = document.getElementById('details_' + pestId);
-    if (details.style.display === 'none') {
-        details.style.display = 'block';
-    } else {
-        details.style.display = 'none';
-    }
-}
-</script>
+    </div>
+</div>
 {% endblock %}

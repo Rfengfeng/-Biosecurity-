@@ -13,15 +13,14 @@
     <div class="options">
         <h3>Manage River Users</h3>
  
-        <button>View River Users</button>
+        <a class="btn" href="{{ url_for('user_list')}}">View River Users</a>
     </div>
     <div class="options">
         <h3>Manage Guide</h3>
        
-        <button>View Guide</button>
-        <button>Add Guide</button>
-        <button>Update Guide</button>
-        <button>Delete Guide</button>
+        <a class="btn" href="{{ url_for('homepage')}}">View/Update/Delete Guide</a>
+        <a class="btn" href="{{ url_for('add_pest')}}">Add Guide</a>
+
     </div>
 </div>
 {% endblock %}

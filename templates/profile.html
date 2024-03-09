@@ -58,8 +58,25 @@
       {% if session.get('role') == 'RiverUser' %}
       <div class="form-row">
         <label class="form-label">Date Joined:</label>
-        <input class="form-input" type="text" name="date_joined" value="{{ user.date_joined }}" readonly>
-      </div>      
+        <input class="form-input" type="text" name="date_joined" id="date_joined" value="{{ user.date_joined }}" readonly>
+        <div id="date_joined_error" class="error"></div> <!-- 用于显示错误消息 -->
+    </div>
+    
+    <script>
+        // 添加事件监听器来检查日期格式
+        document.getElementById('date_joined').addEventListener('input', function() {
+            var dateInput = this.value;
+            var dateRegex = /^\d{4}-\d{2}-\d{2}$/; // 日期格式为 yyyy-mm-dd
+            var dateError = document.getElementById('date_joined_error');
+    
+            if (!dateRegex.test(dateInput)) {
+                dateError.textContent = 'Date must be in yyyy-mm-dd format';
+            } else {
+                dateError.textContent = ''; // 清除错误消息
+            }
+        });
+    </script>
+        
       {% endif %}
       <div class="form-row">
         <label class="form-label">Status:</label>
@@ -73,10 +90,30 @@
         <label class="form-label">Staff Number:</label>
         <input class="form-input" type="text" name="staff_number" value="{{ user.staff_number }}">
       </div>
+      
       <div class="form-row">
         <label class="form-label">Hire Date:</label>
-        <input class="form-input" type="text" name="hire_date" value="{{ user.hire_date }}">
-      </div>
+        <input class="form-input" type="text" name="hire_date" id="hire_date" value="{{ user.hire_date }}">
+        <div id="hire_date_error" class="error"></div> <!-- 用于显示错误消息 -->
+    </div>
+    
+    <script>
+        // 添加事件监听器来检查日期格式
+        document.getElementById('hire_date').addEventListener('input', function() {
+            var dateInput = this.value;
+            var dateRegex = /^\d{4}-\d{2}-\d{2}$/; // 日期格式为 yyyy-mm-dd
+            var dateError = document.getElementById('hire_date_error');
+    
+            if (!dateRegex.test(dateInput)) {
+                dateError.textContent = 'Date must be in yyyy-mm-dd format';
+            } else {
+                dateError.textContent = ''; // 清除错误消息
+            }
+        });
+    </script>
+    
+
+
       <div class="form-row">
         <label class="form-label">Position:</label>
         <input class="form-input" type="text" name="position" value="{{ user.position }}">

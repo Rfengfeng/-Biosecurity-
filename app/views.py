@@ -98,7 +98,7 @@ def login():
                 session['id'] = account[0]
                 session['username'] = account[1]
                 session['role'] = account[4]
-                return redirect(url_for('homepage'))
+                return redirect(url_for('dashboard'))
                 # Redirect to home page
                 # if session['role'] == 'admin':
                 #     return redirect(url_for('admin_panel'))

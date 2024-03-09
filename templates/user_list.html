@@ -33,7 +33,10 @@
         
         {% if session.get('role') == 'admin'%}
   
-        <a href="{{ url_for('profile' , user_id=user[0], msg='') }}" class="btn btn-primary">Edit profile</a>
+        <a class="btn" href="{{ url_for('profile' , user_id=user[0], msg='') }}" >Edit profile</a>
+
+          
+        <a class="btn" href="{{ url_for('change_psw' , user_id=user[0]) }}">Change Password</a>
         {% endif %}
     </div>
     </div>
