@@ -27,15 +27,6 @@ def getCursor():
     dbconn = connection.cursor()
     return dbconn
 
-@app.route("/admin/dashboard")
-def admin_dashboard():
-    return "Admin Dashboard"
-
-@app.route("/admin/profile")
-def admin_profile():
-    return "Admin Profile"
-
-
 
 @app.route('/admin/edit_pest/<int:pest_id>')
 def edit_pest(pest_id):    
@@ -66,6 +57,53 @@ def delete_pest(pest_id):
 @app.route("/admin/add_pest")
 def add_pest():
     return render_template('add_pest.html')
+
+@app.route("/admin/add_user")
+def add_user():
+    return render_template('add_user.html')
+
+@app.route('/admin/add_new_user', methods=['GET', 'POST'])
+def add_new_user():
+    # Output message if something goes wrong...
+    msg = ''
+    # Check if "username", "password" and "email" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        # Create variables for easy access
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+        role = request.form['role']
+        # Check if account exists using MySQL
+        cursor = getCursor()
+        cursor.execute('SELECT * FROM secureaccount WHERE username = %s', (username,))
+        account = cursor.fetchone()
+        # If account exists show error and validation checks
+        if account:
+            msg = 'Account already exists!'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address!'
+        elif len(password) < 8:
+            msg = 'Password must be at least 8 characters long.'
+        elif not any(char.isdigit() for char in password):
+            msg = 'Password must contain at least one digit.'
+        elif not any(char.islower() for char in password) and not any(char.isupper() for char in password):
+            msg = 'Password must contain at least one uppercase or one lowercase letter.'
+
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            msg = 'Username must contain only characters and numbers!'
+        elif not username or not password or not email:
+            msg = 'Please fill out the form!'
+        else:
+            # Account doesnt exists and the form data is valid, now insert new account into accounts table
+            hashed = hashing.hash_value(password, salt='abcd')
+            cursor.execute('INSERT INTO secureaccount VALUES (NULL, %s, %s,%s, %s)', (username, hashed, email, role,))
+            connection.commit()
+            msg = 'You have successfully added a new user!'
+    elif request.method == 'POST':
+        # Form is empty... (no POST data)
+        msg = 'Please fill out the form!'
+    # Show registration form with message (if any)
+    return render_template('add_user.html', msg=msg)
 
 @app.route("/admin/add_pest_into_database", methods=['POST'])
 def add_pest_into_sql():  

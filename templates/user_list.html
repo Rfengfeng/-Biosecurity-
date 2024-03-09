@@ -13,7 +13,7 @@
 </style>
 
 
-<a class="btn" href="{{ url_for('homepage') }}">Back to home</a>
+
 
 <!-- {{session['id']}}
 {{session['role']}} -->
@@ -33,7 +33,7 @@
         
         {% if session.get('role') == 'admin'%}
   
-        <a href="{{ url_for('profile' , user_id=user[0]) }}" class="btn btn-primary">Edit profile</a>
+        <a href="{{ url_for('profile' , user_id=user[0], msg='') }}" class="btn btn-primary">Edit profile</a>
         {% endif %}
     </div>
     </div>

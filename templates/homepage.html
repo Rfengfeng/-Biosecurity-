@@ -26,17 +26,24 @@
         <strong>In NZ:</strong> {{ pest[2] }} 
         <strong>Common Name:</strong> {{ pest[3] }}
         <strong>Scientific Name:</strong> {{ pest[4] }}
+
+        <div class="text-center">
         <a href="{{ url_for('view_pest', pest_id=pest[0]) }}" class="btn btn-primary">View details</a>
+
+        {% if session.get('role') == 'admin' or session.get('role') == 'staff' %}
+      
+          <a href="{{ url_for('edit_pest', pest_id=pest[0]) }}" class="btn btn-warning">Edit</a>
+          <a href="{{ url_for('delete_pest', pest_id=pest[0]) }}" class="btn btn-danger">Delete</a>
+        </div>
+        {% endif %}
+
+
       </div>
     </div>
     {% endfor %}
   </div>
   
-  {% if session.get('role') == 'admin' or session.get('role') == 'staff' %}
-  <div class="text-center mt-3">
-    <p><a href="{{ url_for('add_pest') }}" class="btn btn-big">Add a new record</a></p>
-  </div>
-  {% endif %}
+
 
   {% else %}
   <p class="text-center">You haven't logged in, please login or register first.</p>

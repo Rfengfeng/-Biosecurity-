@@ -20,23 +20,19 @@
 
 
 
-
-
-<a class="btn" href="{{ url_for('homepage') }}">Back to home</a>
-
-  <h2>Edit Your Profile</h2>
-  <!-- {{ user }}
-  {{session['id']}}
-  {{session['role']}}
-  {{ account }}
+  <div class="msg">{{ msg }}</div>
   
-  {{ account[0] }} -->
+  <h2>Edit {{user['role'] }} Profile</h2>
 
-  <form method="POST" action="/update_profile" enctype="multipart/form-data">
+  <form method="POST" action="/update_profile/{{user.user_id}}" enctype="multipart/form-data">
     <div class="form-row">
       <div class="form-row">
         <label class="form-label">User ID Number:</label>
         <input class="form-input" type="text" name="user_id" value="{{ user.user_id }}" readonly>
+      </div>
+      <div class="form-row">
+        <label class="form-label">User Name:</label>
+        <input class="form-input" type="text" name="user_name" value="{{ user.user_name }}" readonly>
       </div>
       <div class="form-row">
         <label class="form-label">First Name:</label>
@@ -72,7 +68,7 @@
             <option value="inactive" {% if user.status == 'inactive' %} selected {% endif %}>Inactive</option>
         </select>
       </div>
-      {% if session.get('role') == 'admin' or session.get('role') == 'staff' %}
+      {% if  user.role  == 'admin' or  user.role == 'staff' %}
       <div class="form-row">
         <label class="form-label">Staff Number:</label>
         <input class="form-input" type="text" name="staff_number" value="{{ user.staff_number }}">
@@ -91,7 +87,7 @@
       </div>
       {% endif %}
     </div>
-    <div class="msg">{{ msg }}</div>
+
       <div class="form-row">
         <input type="submit" value="Update" class="btn btn-warning">
       </div>

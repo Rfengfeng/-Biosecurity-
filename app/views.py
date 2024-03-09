@@ -12,6 +12,12 @@ from app import app
 
 from flask_hashing import Hashing
 
+def validate_date(date_str):
+    try:
+        datetime.strptime(date_str, '%Y-%m-%d')
+        return True
+    except ValueError:
+        return False
 
 hashing = Hashing(app)  #create an instance of hashing
 
@@ -44,6 +50,17 @@ def homepage():
     pests = cursor.fetchall()
     cursor.close()
     return render_template('homepage.html',allpests=pests)
+
+@app.route('/dashboard')
+def dashboard():
+    # Check if user is loggedin
+    if 'loggedin' in session:
+        if session['role'] == 'RiverUser':
+            return render_template('RiverUser_panel.html')
+        elif session['role'] == 'staff':
+            return render_template('staff_panel.html')
+        elif session['role'] == 'admin':
+            return render_template('admin_panel.html')
 
 @app.route('/pests/<int:pest_id>/details')
 def view_pest(pest_id): 
@@ -135,45 +152,227 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
 
-@app.route('/profile/<int:user_id>')
-def profile(user_id):
+
+@app.route('/change_psw/<int:user_id>', methods=['GET', 'POST'])
+def change_psw(user_id):
+    cursor = getCursor()
+    cursor.execute('SELECT * FROM secureaccount WHERE id = %s', (user_id,))
+    account = cursor.fetchone()
+    return render_template('change_pwd.html', user_id=user_id,user=account)
+
+@app.route('/update_psw/<int:user_id>', methods=['GET', 'POST'])
+def update_psw(user_id):
+    # Check if "username", "password" and "email" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'password' in request.form:
+        # Create variables for easy access
+        password = request.form['password']
+        password2 = request.form['password2']
+        # Check if account exists using MySQL
+        cursor = getCursor()
+        cursor.execute('SELECT * FROM secureaccount WHERE id = %s', (user_id,))
+        account = cursor.fetchone()
+        # If account not exists show error and validation checks
+        if not account:
+            msg = 'Account does not exist!'
+        elif password != password2:
+            msg = '''Passwords don't match each other!'''        
+        elif not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$', password):
+            msg = 'Password must be at least 8 characters long and have a mix of character types.'
+        elif not password or not password2:
+            msg = 'Please fill out the form!'
+        else:
+            # Account does exists and the form data is valid, now update account into accounts table
+            hashed = hashing.hash_value(password, salt='abcd')
+            cursor.execute('UPDATE secureaccount SET password = %s  WHERE id = %s', (hashed, user_id,))
+            connection.commit()        
+    return render_template('change_pwd.html', user_id=user_id, msg=msg)
+
+
+
+@app.route('/profile/<int:user_id>', methods=['GET', 'POST'])
+def profile(user_id, msg=''):
+    msg = msg
     # Check if user is loggedin
     if 'loggedin' in session:
         # We need all the account info for the user so we can display it on the profile page
+        print('look for the user')
         cursor = getCursor()
         cursor.execute('SELECT * FROM secureaccount WHERE id = %s;', (int(user_id),))
         account = cursor.fetchone()
 
-        user = {}        
-        if session['role'] == 'RiverUser': 
+        if account:
+            print('user found, id',account[0],'username',account[1],'role',account[4],'user_id',user_id)
+
+        user = {}   
+        user['user_id'] = account[0] 
+        user['user_name'] = account[1]
+        user['password'] = account[2]    
+        user['email'] = account[3]   
+        user['role'] = account[4]
+        user['first_name'] = ''
+        user['last_name'] = ''
+        user['address'] = ''
+        user['phone_number'] = ''
+        user['date_joined'] = ''
+        user['status'] = ''
+        user['staff_number'] = ''
+        user['hire_date'] = ''
+        user['position'] = ''
+        user['department'] = ''
+        if user['role'] == 'RiverUser':             
+            cursor = getCursor()
+            print('SELECT * FROM riveruser WHERE user_id = %s;', (int(user_id),))
             cursor.execute('SELECT * FROM riveruser WHERE user_id = %s;', (int(user_id),))
             account_RU = cursor.fetchone()
-            user['user_id'] = account_RU[0]
-            user['first_name'] = account_RU[1]
-            user['last_name'] = account_RU[2]
-            user['address'] = account_RU[3]
-            user['email'] = account[3]
-            user['phone_number'] = account_RU[5]
-            user['date_joined'] = account_RU[6]
-            user['status'] = account_RU[7]
-        if session['role'] == 'staff' or session['role'] == 'admin': 
+            if account_RU:
+                print('account found in riveruser',account_RU)
+                user['first_name'] = account_RU[1]
+                user['last_name'] = account_RU[2]
+                user['address'] = account_RU[3]
+                user['phone_number'] = account_RU[4]
+                user['date_joined'] = account_RU[5]
+                user['status'] = account_RU[6]
+        if user['role'] == 'staff' or user['role'] == 'admin': 
             cursor.execute('SELECT * FROM staffuser WHERE user_id = %s;', (int(user_id),))
-            account_SF = cursor.fetchone()             
-            user['user_id'] = account_SF[0]                  
-            user['staff_number'] = account_SF[1]  
-            user['first_name'] = account_SF[2]
-            user['last_name'] = account_SF[3]
-            user['address'] = account_SF[4]
-            user['email'] = account[3]
-            user['phone_number'] = account_SF[5]
-            user['hire_date'] = account_SF[6]                   
-            user['position'] = account_SF[7]                    
-            user['department'] = account_SF[8] 
-            user['status'] = account_SF[9]
+            account_SF = cursor.fetchone()   
+            if account_SF:   
+                print('account found in staffuser')           
+                user['staff_number'] = account_SF[1]  
+                user['first_name'] = account_SF[2]
+                user['last_name'] = account_SF[3]
+                user['address'] = account_SF[4]
+                user['phone_number'] = account_SF[5]
+                user['hire_date'] = account_SF[6]                   
+                user['position'] = account_SF[7]                    
+                user['department'] = account_SF[8] 
+                user['status'] = account_SF[9]
         # Show the profile page with account info
-        return render_template('profile.html', user=user, account=account)
+        return render_template('profile.html', user=user ,msg = msg)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
+
+
+
+@app.route('/update_profile/<int:user_id>', methods=['GET', 'POST'])
+def update_profile(user_id):
+    msg = ''
+    # Check if "username", "password" and "email" POST requests exist (user submitted form)
+    if request.method == 'POST' :
+        # Check if account exists in secureaccount
+        cursor = getCursor()
+        cursor.execute('SELECT * FROM secureaccount WHERE id = %s',(int(user_id),))
+        account = cursor.fetchone()
+        # If account exists show error and validation checks
+        if not account:
+            msg = 'Account does not exist!'
+            print(msg)
+        else:            
+            first_name = request.form['first_name']
+            last_name = request.form['last_name']
+            address = request.form['address']
+            phone_number = request.form['phone_number']
+            status = request.form['status']
+            # update profile data table
+            if account[4] == 'RiverUser':                 
+                date_joined = datetime.now().date()
+                # Check if account exists in riveruser
+                cursor = getCursor()
+                cursor.execute('SELECT * FROM riveruser WHERE user_id = %s', (int(user_id),))
+                account_RU = cursor.fetchone()
+                # If account not exists if riveruser:
+                print('create a new profile for riveruser')
+                if not account_RU:
+                    cursor.execute('''INSERT INTO riveruser (first_name, 
+                                           last_name,  
+                                           address,  
+                                           phone_number,  
+                                           date_joined,  
+                                           status,  
+                                           user_id)
+                                    VALUES (%s, %s, %s, %s, %s, %s, %s)''', 
+                                    (first_name, 
+                                        last_name, 
+                                        address, 
+                                        phone_number, 
+                                        date_joined, 
+                                        status, 
+                                        int(user_id),))
+                    connection.commit()
+
+                # If account exists 
+                if account_RU:
+                    print('update profile for riveruser')
+                    cursor.execute('''UPDATE riveruser SET first_name = %s, 
+                                last_name = %s,  
+                                address = %s,  
+                                phone_number = %s,  
+                                date_joined = %s,  
+                                status = %s
+                                WHERE user_id = %s''', 
+                                (first_name, 
+                                    last_name, 
+                                    address, 
+                                    phone_number, 
+                                    date_joined, 
+                                    status, 
+                                    int(user_id),))
+                    connection.commit()
+                msg = 'Suceessfully updated! River user'
+                print(msg)
+            if account[4] == 'staff' or account[4] == 'admin':                 
+                staff_number = request.form['staff_number']
+                hire_date = request.form['hire_date']
+                position = request.form['position']
+                department = request.form['department']    
+                #check date format
+                if not validate_date(hire_date):
+                    msg='date format for hire_date'
+                    return redirect(url_for('profile',user_id = account[0],msg = msg))
+
+                # Check if account exists in staffuser
+                cursor = getCursor()
+                cursor.execute('SELECT * FROM staffuser WHERE user_id = %s', (int(user_id),))
+                account_SU = cursor.fetchone()
+                # If account not exists if staffuser:
+                print('create a new profile for staffuser')
+                if not account_SU:
+                    cursor.execute('''INSERT INTO staffuser 
+                                    (staff_number, first_name, last_name, address, work_phone_number, hire_date, position, department, status, user_id) 
+                                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''', 
+                                    (staff_number, first_name, last_name, address, phone_number, hire_date, position, department, status, int(user_id)))
+                    connection.commit()
+
+
+                # If account exists 
+                if account_SU:
+                    print('updating profile for staffuser')
+                    cursor.execute('''UPDATE staffuser SET 
+                                staff_number = %s, 
+                                first_name = %s, 
+                                last_name = %s,  
+                                address = %s,  
+                                work_phone_number = %s,  
+                                hire_date = %s,   
+                                position = %s,  
+                                department = %s, 
+                                status = %s
+                                WHERE user_id = %s''', 
+                                (staff_number,
+                                    first_name, 
+                                    last_name, 
+                                    address, 
+                                    phone_number, 
+                                    hire_date, 
+                                    position, 
+                                    department, 
+                                    status, 
+                                    int(user_id),))
+                    connection.commit()                        
+    
+            msg = 'Suceessfully updated!'
+    print(msg)
+    return redirect(url_for('profile',user_id = account[0],msg = msg))
+
 
 @app.route('/user_list')
 def user_list():

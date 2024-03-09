@@ -75,12 +75,16 @@
     <header>
         <h1>FRESHWATER PEST AND DISEASE BIOSECURITY</h1> 
 
+
                     <!-- 如果用户已登录，则显示用户名和注销链接 -->
                     {% if session.get('id') %}   
                         <span class="navbar-text">
                             Welcome {{session.get('username')}}  
                         </span>
-                        <a class="btn" href="{{ url_for('profile' , user_id=session['id']) }}">Profile</a>  
+                        
+                        <a class="btn" href="{{ url_for('dashboard' , user_id=session['id']) }}">My Dashboard</a>  
+
+                        
                     
                         <a class="btn" href="{{ url_for('logout') }}">Logout</a>   
                   
