@@ -1,66 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Freshwater Hub</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #87CEEB; /* Light blue */
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      text-align: center;
-    }
-
-    h1 {
-      color: #00688B; /* Dark blue */
-    }
-
-    p {
-      color: #00688B; /* Dark blue */
-    }
-
-    .btn {
-      display: inline-block;
-      background-color: #00688B; /* Dark blue */
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      margin: 10px;
-      transition: background-color 0.3s;
-    }
-
-    .btn:hover {
-      background-color: #004e6d; /* Darker blue */
-    }
-
-    input[type="text"], input[type="password"] {
-      padding: 10px;
-      margin: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      width: 200px;
-    }
-  </style>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
 
   <div class="container">
     
-    <h1>WELCOME TO FRESHWATER PEST AND DISEASE BIOSECURITY </h1> </a>
-    <a href="{{ url_for('index') }}"><h2>LOGIN/REGISTER </h2> </a>
+    <h1>Welcome to FRESHWATER PEST AND DISEASE BIOSECURITY </h1> </a>
   
-    
+    <!-- 如果用户已登录，则显示用户名和注销链接 -->
+    {% if session.get('id') %}
+    <h2>Guaid list </h2>
 
-</body>
-</html>
+    {% else %}
+    <p>You haven't login, please login or regitster first.</p>
+    <a href="{{ url_for('login') }}"><h2>LOGIN/REGISTER </h2> </a>
+
+    {% endif %}
+  </div>
+  {% endblock %}
