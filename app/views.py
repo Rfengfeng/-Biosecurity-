@@ -28,13 +28,13 @@ def getCursor():
     return dbconn
 
 
-# 自定义装饰器函数，用于检查用户是否已登录
-def login_required(func):
-    def wrapper(*args, **kwargs):
-        if 'user_id' not in session:
-            return redirect(url_for('login'))
-        return func(*args, **kwargs)
-    return wrapper
+# # 自定义装饰器函数，用于检查用户是否已登录
+# def login_required(func):
+#     def wrapper(*args, **kwargs):
+#         if 'user_id' not in session:
+#             return redirect(url_for('login'))
+#         return func(*args, **kwargs)
+#     return wrapper
 
 @app.route('/')
 def homepage():
@@ -116,6 +116,8 @@ def register():
             msg = 'Account already exists!'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address!'
+        elif not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$', password):
+            msg = 'Password must be at least 8 characters long and have a mix of character types.'
         elif not re.match(r'[A-Za-z0-9]+', username):
             msg = 'Username must contain only characters and numbers!'
         elif not username or not password or not email:
@@ -133,18 +135,56 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
 
-@app.route('/profile')
-def profile():
+@app.route('/profile/<int:user_id>')
+def profile(user_id):
     # Check if user is loggedin
     if 'loggedin' in session:
         # We need all the account info for the user so we can display it on the profile page
         cursor = getCursor()
-        cursor.execute('SELECT * FROM secureaccount WHERE id = %s', (session['id'],))
+        cursor.execute('SELECT * FROM secureaccount WHERE id = %s;', (int(user_id),))
         account = cursor.fetchone()
+
+        user = {}        
+        if session['role'] == 'RiverUser': 
+            cursor.execute('SELECT * FROM riveruser WHERE user_id = %s;', (int(user_id),))
+            account_RU = cursor.fetchone()
+            user['user_id'] = account_RU[0]
+            user['first_name'] = account_RU[1]
+            user['last_name'] = account_RU[2]
+            user['address'] = account_RU[3]
+            user['email'] = account[3]
+            user['phone_number'] = account_RU[5]
+            user['date_joined'] = account_RU[6]
+            user['status'] = account_RU[7]
+        if session['role'] == 'staff' or session['role'] == 'admin': 
+            cursor.execute('SELECT * FROM staffuser WHERE user_id = %s;', (int(user_id),))
+            account_SF = cursor.fetchone()             
+            user['user_id'] = account_SF[0]                  
+            user['staff_number'] = account_SF[1]  
+            user['first_name'] = account_SF[2]
+            user['last_name'] = account_SF[3]
+            user['address'] = account_SF[4]
+            user['email'] = account[3]
+            user['phone_number'] = account_SF[5]
+            user['hire_date'] = account_SF[6]                   
+            user['position'] = account_SF[7]                    
+            user['department'] = account_SF[8] 
+            user['status'] = account_SF[9]
         # Show the profile page with account info
-        return render_template('profile.html', account=account)
+        return render_template('profile.html', user=user, account=account)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
+
+@app.route('/user_list')
+def user_list():
+    # Check if user is loggedin
+    if 'loggedin' in session:
+        # We need all the account info for the user so we can display it on the profile page
+        cursor = getCursor()
+        cursor.execute('SELECT * FROM secureaccount ;')
+        accounts = cursor.fetchall()
+    return render_template('user_list.html', users=accounts)
+
 
 @app.route('/logout')
 def logout():

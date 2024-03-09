@@ -1,46 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container">
-  <h1 class="display-4 text-center"></h1>
+<style>
+  .table-container {
+    margin: 0 auto; /* 水平居中 */
+    text-align: center; /* 让内容居中 */
+  }
+  
+  .table-container .row {
+    margin-bottom: 20px; /* 增加行间距 */
+  }
+</style>
+<!-- {{session['id']}}
+{{session['role']}} -->
 
   {% if session.get('id') %}
   <h2 class="text-center mt-5">List of Freshwater Pests and Diseases</h2>
-  {% if session.get('role') == 'admin' %}
-  <div class="text-center">
-    <a href="{{ url_for('add_pest') }}" class="btn btn-success">Add a new record</a>
-  </div>
-  {% endif %}
 
-  {% for pest in allpests %}
-  {{ pest[9]}}
-  <div class="card mb-3">
-    <div class="row no-gutters">
-      <div class="col-md-8">
-        <div class="card-body">
-          ID: {{ pest[0] }} 
-          <strong>  Type:</strong> {{ pest[1] }} 
-          <strong>  In NZ:</strong> {{ pest[2] }} 
-          <p class="card-text"><strong>Common Name:</strong> {{ pest[3] }}</p>
-          <p class="card-text"><strong>Scientific Name:</strong> {{ pest[4] }}</p>
-          <p class="card-text"><strong>Key Characteristics:</strong> {{ pest[5] }}</p>
-          <p class="card-text"><strong>Biology/Description:</strong> {{ pest[6] }}</p>
-          <p class="card-text"><strong>Impacts:</strong> {{ pest[7] }}</p>
-        </div>
-        {% if session.get('role') == 'admin' %}
-        <div class="text-center">
-          <a href="{{ url_for('view_pest', pest_id=pest[0]) }}" class="btn btn-primary">View details</a>
-          <a href="{{ url_for('edit_pest', pest_id=pest[0]) }}" class="btn btn-warning">Edit</a>
-          <a href="{{ url_for('delete_pest', pest_id=pest[0]) }}" class="btn btn-danger">Delete</a>
-        </div>
-        {% endif %}
+  <div class="table-container">
+    {% for pest in allpests %}
+    <div class="row">
+      <div class="col">
+        <strong>ID:</strong> {{ pest[0] }}       
+        <strong>Type:</strong> {{ pest[1] }}  
+        <strong>In NZ:</strong> {{ pest[2] }} 
+        <strong>Common Name:</strong> {{ pest[3] }}
+        <strong>Scientific Name:</strong> {{ pest[4] }}
+        <a href="{{ url_for('view_pest', pest_id=pest[0]) }}" class="btn btn-primary">View details</a>
       </div>
     </div>
+    {% endfor %}
   </div>
-
-
-
-  {% endfor %}
+  
+  {% if session.get('role') == 'admin' or session.get('role') == 'staff' %}
+  <div class="text-center mt-3">
+    <p><a href="{{ url_for('add_pest') }}" class="btn btn-big">Add a new record</a></p>
+  </div>
+  {% endif %}
 
   {% else %}
   <p class="text-center">You haven't logged in, please login or register first.</p>
@@ -50,4 +46,4 @@
   {% endif %}
 </div>
 
-  {% endblock %}
+{% endblock %}

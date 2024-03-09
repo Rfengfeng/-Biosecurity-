@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  .table-container {
+    margin: 0 auto; /* 水平居中 */
+    text-align: center; /* 让内容居中 */
+  }
+  
+  .table-container .row {
+    margin-bottom: 20px; /* 增加行间距 */
+  }
+</style>
+
+
+<a class="btn" href="{{ url_for('homepage') }}">Back to home</a>
+
+<!-- {{session['id']}}
+{{session['role']}} -->
+
+  {% if session.get('id') %}
+  <h2 class="text-center mt-5">List of Freshwater Pests and Diseases</h2>
+
+  <div class="table-container">
+    {% for user in users %}
+    <div class="row">
+      <div class="col">
+        <strong>ID:</strong> {{ user[0] }}       
+        <strong>User name:</strong> {{ user[1] }}  
+        <strong>Email:</strong> {{ user[2] }} 
+        <strong>Role:</strong> {{ user[3] }}
+        <strong>Status:</strong> {{ user[4] }}
+        
+        {% if session.get('role') == 'admin'%}
+  
+        <a href="{{ url_for('profile' , user_id=user[0]) }}" class="btn btn-primary">Edit profile</a>
+        {% endif %}
+    </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+  {% endif %}
+
+{% endblock %}

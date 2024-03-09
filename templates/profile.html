@@ -1,24 +1,107 @@
-{% extends 'layout.html' %}
-
-{% block title %}Profile{% endblock %}
-
+{% extends "base.html" %}
 {% block content %}
-<h2>Profile Page</h2>
-<div>
-    <p>Your account details are below:</p>
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td>{{ account[1] }}</td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td>{{ account[2] }}</td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td>{{ account[3] }}</td>
-        </tr>
-    </table>
-</div>
+
+<style>
+    .form-row {
+      margin-bottom: 10px;
+    }
+    .form-label {
+      width: 150px;
+      display: inline-block;
+    }
+    .form-input {
+      width: 300px;
+    }
+    .form-textarea {
+      width: 300px;
+      height: 100px;
+    }
+  </style>
+
+
+
+
+
+<a class="btn" href="{{ url_for('homepage') }}">Back to home</a>
+
+  <h2>Edit Your Profile</h2>
+  <!-- {{ user }}
+  {{session['id']}}
+  {{session['role']}}
+  {{ account }}
+  
+  {{ account[0] }} -->
+
+  <form method="POST" action="/update_profile" enctype="multipart/form-data">
+    <div class="form-row">
+      <div class="form-row">
+        <label class="form-label">User ID Number:</label>
+        <input class="form-input" type="text" name="user_id" value="{{ user.user_id }}" readonly>
+      </div>
+      <div class="form-row">
+        <label class="form-label">First Name:</label>
+        <input class="form-input" type="text" name="first_name" value="{{ user.first_name }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Last Name:</label>
+        <input class="form-input" type="text" name="last_name" value="{{ user.last_name }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Address:</label>
+        <input class="form-input" type="text" name="address" value="{{ user.address }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Email:</label>
+        <input class="form-input" type="email" name="email" value="{{ user.email }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Phone Number:</label>
+        <input class="form-input" type="tel" name="phone_number" value="{{ user.phone_number }}">
+      </div>
+      
+      {% if session.get('role') == 'RiverUser' %}
+      <div class="form-row">
+        <label class="form-label">Date Joined:</label>
+        <input class="form-input" type="text" name="date_joined" value="{{ user.date_joined }}" readonly>
+      </div>      
+      {% endif %}
+      <div class="form-row">
+        <label class="form-label">Status:</label>
+        <select class="form-select" name="status">
+            <option value="active" {% if user.status == 'active' %} selected {% endif %}>Active</option>
+            <option value="inactive" {% if user.status == 'inactive' %} selected {% endif %}>Inactive</option>
+        </select>
+      </div>
+      {% if session.get('role') == 'admin' or session.get('role') == 'staff' %}
+      <div class="form-row">
+        <label class="form-label">Staff Number:</label>
+        <input class="form-input" type="text" name="staff_number" value="{{ user.staff_number }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Hire Date:</label>
+        <input class="form-input" type="text" name="hire_date" value="{{ user.hire_date }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Position:</label>
+        <input class="form-input" type="text" name="position" value="{{ user.position }}">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Department:</label>
+        <input class="form-input" type="text" name="department" value="{{ user.department }}">
+      </div>
+      {% endif %}
+    </div>
+    <div class="msg">{{ msg }}</div>
+      <div class="form-row">
+        <input type="submit" value="Update" class="btn btn-warning">
+      </div>
+  </form>
+
+  {% if session.get('role') == 'admin' %}
+  <h2><a href="{{ url_for('user_list')}}">Edit other's Profile</a></h2>
+  {% endif %}
+
+  {% if session.get('role') == 'staff' %}
+  <h2><a href="{{ url_for('user_list')}}">View other's Profile</a></h2>
+  {% endif %}
 {% endblock %}

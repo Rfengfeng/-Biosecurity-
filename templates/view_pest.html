@@ -2,6 +2,8 @@
 
 {% extends "base.html" %}
 {% block content %}
+        
+<a class="btn" href="{{ url_for('homepage') }}">Back to home</a>
 
 
   <h2>Pest/Disease Details</h2>
@@ -13,37 +15,37 @@
         <div class="col-md-6">
           <div class="form-row">
             <label class="form-label">ID:</label>
-            <p>{{ pest[0] }}</p>
+            <span style="font-weight: bold;">{{ pest[0] }}</span>
           </div>
           <div class="form-row">
             <label class="form-label">Type:</label>
-            <p>{{ pest[1] }}</p>
+            <span style="font-weight: bold;">{{ pest[1] }}</span>
           </div>
           <div class="form-row">
             <label class="form-label">In NZ:</label>
-            <p>{{ pest[2] }}</p>
+            <span style="font-weight: bold;">{{ pest[2] }}</span>
           </div>
           <div class="form-row">
             <label class="form-label">Common Name:</label>
-            <p>{{ pest[3] }}</p>
+            <span style="font-weight: bold;">{{ pest[3] }}</span>
           </div>
           <div class="form-row">
             <label class="form-label">Scientific Name:</label>
-            <p>{{ pest[4] }}</p>
+            <span style="font-weight: bold;">{{ pest[4] }}</span>
           </div>
           <div class="form-row">
             <label class="form-label">Key Characteristics:</label>
-            <p>{{ pest[5] }}</p>
+            <p style="font-weight: bold;">{{ pest[5] }}</p>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-row">
             <label class="form-label">Biology/Description:</label>
-            <p>{{ pest[6] }}</p>
+            <p style="font-weight: bold;">{{ pest[6] }}</p>
           </div>
           <div class="form-row">
             <label class="form-label">Impacts:</label>
-            <p>{{ pest[7] }}</p>
+            <p style="font-weight: bold;">{{ pest[7] }}</p>
           </div>
           <div class="form-row">
             <label class="form-label">Image:</label>
@@ -54,5 +56,11 @@
     </div>
   </div>
   
-  
+    
+  {% if session.get('role') == 'admin' or session.get('role') == 'staff' %}
+  <div class="text-center">
+    <a href="{{ url_for('edit_pest', pest_id=pest[0]) }}" class="btn btn-warning">Edit</a>
+    <a href="{{ url_for('delete_pest', pest_id=pest[0]) }}" class="btn btn-danger">Delete</a>
+  </div>
+  {% endif %}
 {% endblock %}
