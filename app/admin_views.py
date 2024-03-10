@@ -1,4 +1,4 @@
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template,flash, request, session, redirect, url_for
 from app.functions import image_type
 
 import re
@@ -105,7 +105,7 @@ def add_new_user():
     elif request.method == 'POST':
         # Form is empty... (no POST data)
         msg = 'Please fill out the form!'
-    # Show registration form with message (if any)
+    flash(msg)
     return render_template('add_user.html', msg=msg)
 
 @app.route("/admin/add_pest_into_database", methods=['POST'])

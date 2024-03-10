@@ -1,4 +1,4 @@
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template,flash, request, session, redirect, url_for
 from app.functions import image_type
 
 import re
@@ -133,8 +133,12 @@ def register():
             msg = 'Account already exists!'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address!'
-        elif not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$', password):
-            msg = 'Password must be at least 8 characters long and have a mix of character types.'
+        elif len(password) < 8:
+            msg = 'Password must be at least 8 characters long.'
+        elif not any(char.isdigit() for char in password):
+            msg = 'Password must contain at least one digit.'
+        elif not any(char.islower() for char in password) and not any(char.isupper() for char in password):
+            msg = 'Password must contain at least one uppercase or one lowercase letter.'
         elif not re.match(r'[A-Za-z0-9]+', username):
             msg = 'Username must contain only characters and numbers!'
         elif not username or not password or not email:
@@ -175,17 +179,25 @@ def update_psw(user_id):
         if not account:
             msg = 'Account does not exist!'
         elif password != password2:
-            msg = '''Passwords don't match each other!'''        
-        elif not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$', password):
-            msg = 'Password must be at least 8 characters long and have a mix of character types.'
+            msg = '''Passwords don't match each other!''' 
+        elif len(password) < 8:
+            msg = 'Password must be at least 8 characters long.'
+        elif not any(char.isdigit() for char in password):
+            msg = 'Password must contain at least one digit.'
+        elif not any(char.islower() for char in password) and not any(char.isupper() for char in password):
+            msg = 'Password must contain at least one uppercase or one lowercase letter.'
+
         elif not password or not password2:
             msg = 'Please fill out the form!'
         else:
             # Account does exists and the form data is valid, now update account into accounts table
             hashed = hashing.hash_value(password, salt='abcd')
+            cursor = getCursor()
             cursor.execute('UPDATE secureaccount SET password = %s  WHERE id = %s', (hashed, user_id,))
-            connection.commit()        
-    return render_template('change_pwd.html', user_id=user_id, msg=msg)
+            connection.commit()    
+            msg = "Password changed sucessfully!"  
+    flash(msg)
+    return render_template('change_pwd.html', user_id=user_id,user=account)
 
 
 

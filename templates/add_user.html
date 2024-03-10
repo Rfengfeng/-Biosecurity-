@@ -29,7 +29,14 @@
                     <option value="admin">admin</option>
                 </select>
 
-                <div class="msg">{{ msg }}</div>
+				<div class="msg">
+					{% with messages = get_flashed_messages() %}
+					{% if messages %}
+					   {% for message in messages %}
+						  {{ message }}
+					   {% endfor %}
+					{% endif %}
+				 {% endwith %}</div>
 				<input type="submit" value="Add a new user">
 			</form>
 		</div>

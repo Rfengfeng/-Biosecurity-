@@ -4,7 +4,7 @@
 			<h1>Change password</h1>
 			<h2 style="text-align: center;">The user name is: {{user[1]}}</h2>
 			
-			<form action="/update_psw/{{session['id']}} " method="post" autocomplete="off">
+			<form action="/update_psw/{{user[0]}} " method="post" autocomplete="off">
 				
 
 				<label for="password">
@@ -18,7 +18,14 @@
 				<input type="password" name="password2" placeholder="Input new password again" id="password2" required>
 				
 
-				<div class="msg">{{ msg }}</div>
+				<div class="msg">
+					{% with messages = get_flashed_messages() %}
+					{% if messages %}
+					   {% for message in messages %}
+						  {{ message }}
+					   {% endfor %}
+					{% endif %}
+				 {% endwith %}</div>
 				<input type="submit" value="Change password">
 			</form>
 		</div>

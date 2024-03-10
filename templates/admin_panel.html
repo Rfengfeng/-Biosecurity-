@@ -9,17 +9,10 @@
         <a class="btn" href="{{ url_for('change_psw' , user_id=session['id']) }}">Change Password</a>
     </div>
     <div class="options">
-        <h3>Manage River Users</h3>
+        <h3>Manage Users</h3>
  
-        <a class="btn" href="{{ url_for('user_list')}}">View/Update/Delete River Users</a>
-        <a class="btn" href="{{ url_for('add_user')}}">Add River User</a>
-    </div>
-    <div class="options">
-        <h3>Manage Staff</h3>
-      
-        <a class="btn" href="{{ url_for('user_list')}}">View/Update/Delete Staff</a>
-        <a class="btn" href="{{ url_for('add_user')}}">Add Staff</a>
-
+        <a class="btn" href="{{ url_for('user_list')}}">View/Update/Delete Users</a>
+        <a class="btn" href="{{ url_for('add_user')}}">Add  User</a>
     </div>
     <div class="options">
         <h3>Manage Guide</h3>
