@@ -27,9 +27,9 @@ INSERT INTO secureaccount (username, password, email, role) VALUES
 SELECT * FROM secureaccount;
 
 
-DROP TABLE IF EXISTS StaffUser;
+DROP TABLE IF EXISTS staffuser;
 
-CREATE TABLE StaffUser (
+CREATE TABLE staffuser (
     id INT AUTO_INCREMENT PRIMARY KEY,
     staff_number INT,
     first_name VARCHAR(255),
@@ -44,7 +44,7 @@ CREATE TABLE StaffUser (
 );
 
 
-INSERT INTO StaffUser (staff_number, first_name, last_name,  address, work_phone_number, hire_date, position, department, status, user_id)
+INSERT INTO staffuser (staff_number, first_name, last_name,  address, work_phone_number, hire_date, position, department, status, user_id)
 VALUES (1, 'Admin', 'Admin', 'admin address', '1234567890', CURRENT_DATE, 'Admin', 'Admin Department', 'active', 2);
 
 
