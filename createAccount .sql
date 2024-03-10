@@ -52,9 +52,9 @@ SELECT * FROM staffuser;
 
 
 
-DROP TABLE IF EXISTS RiverUser;
+DROP TABLE IF EXISTS riveruser;
 
-CREATE TABLE RiverUser (
+CREATE TABLE riveruser (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
@@ -66,10 +66,10 @@ CREATE TABLE RiverUser (
 );
 
 
-INSERT INTO RiverUser (first_name, last_name, address,  phone_number, status, user_id)
+INSERT INTO riveruser (first_name, last_name, address,  phone_number, status, user_id)
 VALUES ('user1', 'river', 'user Address',  '1234567890', 'active', 5);
 
-SELECT * FROM RiverUser;
+SELECT * FROM riveruser;
 
 
 
