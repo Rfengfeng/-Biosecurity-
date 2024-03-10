@@ -131,22 +131,29 @@ def register():
         # If account exists show error and validation checks
         if account:
             msg = 'Account already exists!'
+            return render_template('register.html', msg=msg)
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address!'
+            return render_template('register.html', msg=msg)
         elif len(password) < 8:
             msg = 'Password must be at least 8 characters long.'
+            return render_template('register.html', msg=msg)
         elif not any(char.isdigit() for char in password):
             msg = 'Password must contain at least one digit.'
+            return render_template('register.html', msg=msg)
         elif not any(char.islower() for char in password) and not any(char.isupper() for char in password):
             msg = 'Password must contain at least one uppercase or one lowercase letter.'
+            return render_template('register.html', msg=msg)
         elif not re.match(r'[A-Za-z0-9]+', username):
             msg = 'Username must contain only characters and numbers!'
+            return render_template('register.html', msg=msg)
         elif not username or not password or not email:
             msg = 'Please fill out the form!'
+            return render_template('register.html', msg=msg)
         else:
             # Account doesnt exists and the form data is valid, now insert new account into accounts table
             hashed = hashing.hash_value(password, salt='abcd')
-            cursor.execute('INSERT INTO secureaccount VALUES (NULL, %s, %s, %s)', (username, hashed, email,))
+            cursor.execute('INSERT INTO secureaccount VALUES (NULL, %s, %s, %s, %s)', (username, hashed, email,'RiverUser',))
             connection.commit()
             msg = 'You have successfully registered! Please login!'
         return render_template('login.html', msg=msg)
