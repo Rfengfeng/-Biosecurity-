@@ -27,6 +27,9 @@ def getCursor():
     dbconn = connection.cursor()
     return dbconn
 
+@app.route("/admin/dashboard")
+def admin_dashboard():
+    return render_template('admin_panel.html')
 
 @app.route('/admin/edit_pest/<int:pest_id>')
 def edit_pest(pest_id):    

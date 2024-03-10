@@ -14,15 +14,17 @@ CREATE TABLE secureaccount (
 
 -- 添加五条记录
 INSERT INTO secureaccount (username, password, email, role) VALUES
-('admin1', 'password1', 'admin1@example.com', 'admin'),
-('staff1', 'password2', 'staff1@example.com', 'staff'),
-('staff2', 'password3', 'staff2@example.com', 'staff'),
-('staff3', 'password3', 'staff3@example.com', 'staff'),
-('user1', 'password4', 'user1@example.com', 'RiverUser'),
-('user2', 'password4', 'user1@example.com', 'RiverUser'),
-('user3', 'password4', 'user1@example.com', 'RiverUser'),
-('user4', 'password4', 'user1@example.com', 'RiverUser'),
-('user5', 'password5', 'user2@example.com', 'RiverUser');
+('admin1', 'e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae', 'admin1@example.com', 'admin'),
+('staff1', 'e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae', 'staff1@example.com', 'staff'),
+('staff2', 'e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae', 'staff2@example.com', 'staff'),
+('staff3', 'e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae', 'staff3@example.com', 'staff'),
+('user1', 'e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae', 'user1@example.com', 'RiverUser'),
+('user2', 'e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae', 'user1@example.com', 'RiverUser'),
+('user3', 'e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae', 'user1@example.com', 'RiverUser'),
+('user4', 'e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae', 'user1@example.com', 'RiverUser'),
+('user5', 'e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae', 'user2@example.com', 'RiverUser');
+
+SELECT * FROM secureaccount;
 
 
 DROP TABLE IF EXISTS StaffUser;
@@ -46,7 +48,7 @@ INSERT INTO StaffUser (staff_number, first_name, last_name,  address, work_phone
 VALUES (1, 'Admin', 'Admin', 'admin address', '1234567890', CURRENT_DATE, 'Admin', 'Admin Department', 'active', 2);
 
 
-SELECT * FROM pythonlogin.staffuser;
+SELECT * FROM staffuser;
 
 
 
@@ -66,6 +68,9 @@ CREATE TABLE RiverUser (
 
 INSERT INTO RiverUser (first_name, last_name, address,  phone_number, status, user_id)
 VALUES ('user1', 'river', 'user Address',  '1234567890', 'active', 5);
+
+SELECT * FROM RiverUser;
+
 
 
 
@@ -103,6 +108,14 @@ INSERT INTO freshwater_guide (freshwater_item_type, present_in_NZ, common_name, 
 
 -- Insert 8 freshwater pests/diseases not present in NZ
 INSERT INTO freshwater_guide (freshwater_item_type, present_in_NZ, common_name, scientific_name, key_characteristics, biology_description, impacts, primary_image) VALUES
-('pest', 'no', 'Snakehead Fish', 'Channa spp.', 'Freshwater predatory fish with distinctive snake-like appearance', 'Snakehead fish are predatory fish native to parts of Asia and Africa. They have the ability to breathe air and can survive out of water for extended periods, posing a threat to native ecosystems if introduced.', 'Predation on native fish species, disruption of ecosystems', NULL),
-('disease', 'no', 'Crayfish Plague', 'Aphanomyces astaci', 'Pathogen affecting freshwater crayfish', 'Crayfish plague is a disease caused by the water mold Aphanomyces astaci, which infects and kills freshwater crayfish. It can spread rapidly in crayfish populations and has led to declines in native crayfish species in some areas.', 'Population declines of native crayfish species', NULL);
--- Add more pests/diseases not present in NZ here...
+('pest', 'no', 'Zebra Mussel', 'Dreissena polymorpha', 'Small, D-shaped shell with alternating dark and light stripes', 'Zebra mussels are invasive bivalves native to Eastern Europe. They have spread to many freshwater habitats worldwide through ballast water and recreational boating. Zebra mussels can attach to hard surfaces such as rocks, pipes, and boat hulls, leading to clogged water intake structures and ecosystem disruption.', 'Clogging of water infrastructure, displacement of native species, impacts on water quality', NULL),
+('pest', 'no', 'Snakehead Fish', 'Channa spp.', 'Long, cylindrical body with large mouth and sharp teeth', 'Snakehead fish are predatory freshwater fish native to Asia and Africa. They have been introduced to non-native habitats through the aquarium trade and intentional releases. Snakehead fish are voracious predators that can decimate native fish populations and disrupt aquatic ecosystems.', 'Predation on native species, alteration of food webs, ecosystem disruption', NULL),
+('disease', 'no', 'Whirling Disease', 'Myxobolus cerebralis', 'Spore-forming parasite that attacks cartilage in fish', 'Whirling disease is caused by the microscopic parasite Myxobolus cerebralis. It primarily affects salmonid fish species such as trout and salmon. Infected fish exhibit abnormal swimming behavior, spinning in circles ("whirling"), due to damage to their cartilage. Whirling disease can devastate fish populations in affected watersheds.', 'Deformities in fish, reduced survival and reproductive success, impacts on recreational fishing', NULL),
+('pest', 'no', 'Water Hyacinth', 'Eichhornia crassipes', 'Floating aquatic plant with thick, glossy leaves and purple flowers', 'Water hyacinth is a highly invasive aquatic plant native to South America. It forms dense mats on the water surface, blocking sunlight and oxygen from reaching aquatic organisms below. Water hyacinth can clog waterways, impede navigation, and disrupt aquatic ecosystems.', 'Habitat degradation, displacement of native vegetation, impacts on water quality', NULL),
+('disease', 'no', 'Ichthyophthirius multifiliis', 'Ichthyophthirius multifiliis', 'White spots or cysts on fish skin, fins, and gills', 'Ichthyophthirius multifiliis, commonly known as ich or white spot disease, is a parasitic protozoan that infects freshwater fish. It causes white cysts to form on the skin, fins, and gills of infected fish, leading to tissue damage and respiratory distress. Ichthyophthirius multifiliis can result in significant mortality in fish populations.', 'Skin and gill damage, respiratory distress, increased susceptibility to secondary infections', NULL),
+('pest', 'no', 'Giant African Snail', 'Achatina fulica', 'Large, conical shell with brown stripes', 'The giant African snail is one of the largest land snail species in the world. It is native to East Africa but has been introduced to many other regions as an invasive species. Giant African snails can consume a wide variety of plants, including agricultural crops and native vegetation. They also carry parasites and can transmit diseases to humans and animals.', 'Damage to crops and vegetation, transmission of diseases, impacts on human health', NULL),
+('disease', 'no', 'Koi Herpesvirus', 'Cyprinid herpesvirus 3', 'Rapid onset of lethargy, skin lesions, respiratory distress', 'Koi herpesvirus (KHV) is a highly contagious viral disease that affects common carp, including koi fish. It can cause significant mortality in infected fish populations, especially during warmer temperatures. Koi herpesvirus poses a serious threat to ornamental fish farms and recreational fisheries worldwide.', 'Mortality in infected fish, economic losses for aquaculture industry, impacts on recreational fishing', NULL),
+('pest', 'no', 'Northern Snakehead', 'Channa argus', 'Long, cylindrical body with large mouth and sharp teeth', 'The northern snakehead is a predatory freshwater fish native to Asia. It has been introduced to non-native habitats through the aquarium trade and intentional releases. Northern snakeheads are voracious predators that can outcompete native fish species and disrupt aquatic ecosystems.', 'Predation on native species, alteration of food webs, ecosystem disruption', NULL);
+
+
+SELECT * FROM freshwater_guide;

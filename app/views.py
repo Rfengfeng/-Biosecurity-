@@ -58,9 +58,9 @@ def dashboard():
         if session['role'] == 'RiverUser':
             return render_template('RiverUser_panel.html')
         elif session['role'] == 'staff':
-            return render_template('staff_panel.html')
+            return redirect(url_for('staff_dashboard'))
         elif session['role'] == 'admin':
-            return render_template('admin_panel.html')
+            return redirect(url_for('admin_dashboard'))
 
 @app.route('/pests/<int:pest_id>/details')
 def view_pest(pest_id): 

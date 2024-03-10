@@ -1,9 +1,7 @@
 from app import app
+from flask import render_template, request, session, redirect, url_for
 
 @app.route("/staff/dashboard")
 def staff_dashboard():
-    return "Staff Dashboard"
+    return render_template('staff_panel.html')
 
-@app.route("/staff/profile")
-def staff_profile():
-    return "Staff Profile"
