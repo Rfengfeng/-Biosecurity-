@@ -55,11 +55,13 @@
     </div>
   </div>
   
-    
-  {% if session.get('role') == 'admin' or session.get('role') == 'staff' %}
   <div class="text-center">
+  {% if session.get('role') == 'admin' or session.get('role') == 'staff' %}
+
     <a href="{{ url_for('edit_pest', pest_id=pest[0]) }}" class="btn btn-warning">Edit</a>
     <a href="{{ url_for('delete_pest', pest_id=pest[0]) }}" class="btn btn-danger">Delete</a>
-  </div>
+
   {% endif %}
+  <a href="{{ url_for('homepage') }}" class="btn btn-warning">Back to list</a>
+</div>
 {% endblock %}

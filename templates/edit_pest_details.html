@@ -65,10 +65,13 @@
       <label class="form-label">Image:</label>
       <img src="data:image/{{ mime_type }};base64,{{ pest[8] }}" alt="Uploaded Image">
       <input type="file" name="pest_image">
-      <!-- <input class="form-input" type="text" name="image" value="{{ pest[8] }}"> -->
+      
     </div>
       <div class="form-row">
-        <input type="submit" value="Update" class="btn btn-warning">
+        <input type="submit" value="Update" class="btn btn-warning"> 
+        <a href="{{ url_for('homepage') }}" class="btn btn-warning">Back to list</a>
       </div>
   </form>
+  
+ 
 {% endblock %}
