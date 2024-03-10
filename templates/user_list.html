@@ -30,14 +30,14 @@
         <strong>Email:</strong> {{ user[2] }} 
         <strong>Role:</strong> {{ user[3] }}
         <strong>Status:</strong> {{ user[4] }}
-        
+        <div>
         {% if session.get('role') == 'admin'%}
   
         <a class="btn" href="{{ url_for('profile' , user_id=user[0], msg='') }}" >Edit profile</a>
 
           
         <a class="btn" href="{{ url_for('change_psw' , user_id=user[0]) }}">Change Password</a>
-        {% endif %}
+        {% endif %}</div>
     </div>
     </div>
     {% endfor %}
