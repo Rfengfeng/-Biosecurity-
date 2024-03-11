@@ -1,39 +1,65 @@
-1. Koi Carp Scientific  Sourced from
+                                                reference 
+1. Koi Carp Scientific  Sourced from https://www.mpi.govt.nz/biosecurity/exotic-pests-and-diseases-in-newzealand/
+freshwater-pests-and-diseases-in-nz/
  
-2 Didymo Scientific Sourced from
+2 Didymo Scientific Sourced from https://www.mpi.govt.nz/biosecurity/exotic-pests-and-diseases-in-newzealand/
+freshwater-pests-and-diseases-in-nz/
 
-3. Asian Clam Scientific Sourced from
+3. Asian Clam Scientific Sourced from https://www.mpi.govt.nz/biosecurity/exotic-pests-and-diseases-in-newzealand/
+freshwater-pests-and-diseases-in-nz/
 
-4. Myrtle Rust Scientific  Sourced from
+4. Myrtle Rust Scientific  Sourced from https://www.mpi.govt.nz/biosecurity/exotic-pests-and-diseases-in-newzealand/
+freshwater-pests-and-diseases-in-nz/
 
-5.Gambusia Scientific  Sourced from
+5.Gambusia Scientific  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-6  Didymo  Sourced from
+6  Didymo  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-7  Starry Stonewort  Sourced from
+7  Starry Stonewort  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-8  Cyanobacterial Blooms 
+8  Cyanobacterial Blooms https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-9 Giant Salvinia  Sourced from
+9 Giant Salvinia  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-10  Kauri Dieback  Sourced from
+10  Kauri Dieback  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-11 Red Swamp Crayfish Sourced from
+11 Red Swamp Crayfish Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-12 Phytophthora Agathidicida S Sourced from
+12 Phytophthora Agathidicida S Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-13 Zebra Mussel  Sourced from
+13 Zebra Mussel  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-14 Snakehead Fish  Sourced from
+14 Snakehead Fish  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-15 Whirling Disease  Sourced from
+15 Whirling Disease  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-16 Water Hyacinth  Sourced from
+16 Water Hyacinth  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-17Ichthyophthirius multifiliis Sourced from
+17Ichthyophthirius multifiliis Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-18 Giant African Snail  Sourced from
+18 Giant African Snail  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-19 Koi Herpesvirus  Sourced from
+19 Koi Herpesvirus  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
 
-20 Northern Snakehead  Sourced from
+20 Northern Snakehead  Sourced from https://www.mpi.govt.nz/biosecurity/pests-and-diseases-not-in-newzealand/
+freshwater-pests-and-diseases-not-in-nz
+
+21 other resource
+ https://www.doc.govt.nz/nature/pests-and-threats/freshwater-pests/
+ https://www.doc.govt.nz/nature/pests-and-threats/freshwater-pests/otherfreshwater-
+pest-species/
